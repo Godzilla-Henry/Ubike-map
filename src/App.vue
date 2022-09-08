@@ -1,32 +1,51 @@
 <template>
-  <nav>
-    <router-link to="/">首頁</router-link> |
-    <router-link to="/SearchView">查詢</router-link> |
-    <router-link to="/MapView">地圖</router-link> |
-    <router-link to="/AboutView">關於</router-link> 
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg px-0 py-3">
+    <div class="container-xl">
+      <!-- Logo -->
+      <a class="navbar-brand" href="#">
+        <img src = "@/assets/logo_180x180.png" alt = "site icon">
+      </a>
+      <!-- Navbar toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Collapse -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <!-- Nav -->
+        <div class="navbar-nav mx-lg-auto">
+          <router-link class="nav-item nav-link" to="/">首頁</router-link> 
+          <router-link class="nav-item nav-link active" to="/SearchView">查詢</router-link> 
+          <router-link class="nav-item nav-link" to="/MapView">地圖</router-link> 
+          <router-link class="nav-item nav-link" to="/AboutView">關於</router-link> 
+        </div>
+        <!-- Action -->
+        <div class="d-flex align-items-lg-center mt-3 mt-lg-0" style="width:180px;">
+          <a class="nav-item nav-link" href="#">Light</a>
+          <a href="#" class="btn btn-sm btn-dark w-full w-lg-auto" style="color:white;">
+            Dark
+          </a>
+        </div>
+      </div>
+    </div>
   </nav>
+  <!-- end of navbar -->
   <router-view/>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="css" scoped>
+  nav{
+    border-bottom: 1px solid grey; 
+  }
+  nav a{
+    font-weight: 600;
+    color: rgb(92, 92, 92);
+  } 
+  nav a.active{
+    color: rgb(0, 0, 0);
+  }
+  .navbar-brand img{
+    max-width: 180px;
+    max-height: 75px;
+  }
 </style>
