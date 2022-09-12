@@ -4,7 +4,7 @@
     <div class="container-xl">
       <!-- Logo -->
       <a class="navbar-brand" href="#">
-        <img src = "@/assets/logo_180x180.png" alt = "site icon">
+        <img :src="require('@/assets/logo_180x180.png')" alt="LOGO">
       </a>
       <!-- Navbar toggle -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,14 @@
   <!-- end of navbar -->
   <router-view/>
 </template>
+
+
+<script>
+export default {
+  setup() {
+  },
+}
+</script>
 
 <style lang="css" scoped>
   nav{
