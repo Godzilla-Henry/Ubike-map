@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import PrimeVue from 'primevue/config';
 
 import DataTable from 'primevue/datatable';
+import Dropdown from 'primevue/dropdown';
 import Column from 'primevue/column';
 import Card from 'primevue/card';
 import Badge from 'primevue/badge';
@@ -23,6 +24,7 @@ createApp(App)
 .use(PrimeVue)
 .directive('badge', BadgeDirective)
 .component('DataTable', DataTable)
+.component('Dropdown', Dropdown)
 .component('Column', Column)
 .component('Card', Card)
 .component('Badge', Badge)
