@@ -61,7 +61,7 @@
             </div>
             <div class="col-md-12">
                 <Card
-                    style="margin: 20px 0px;"
+                    style="margin: 20px 0px 70px;"
                 >
                     <template #title>
                         <div class="title">
@@ -169,11 +169,21 @@ export default {
         /* Form */
         const selectedCity2 = ref();
         const cities = ref([
-            {name: 'New York', code: 'NY'},
-            {name: 'Rome', code: 'RM'},
-            {name: 'London', code: 'LDN'},
-            {name: 'Istanbul', code: 'IST'},
-            {name: 'Paris', code: 'PRS'}
+            {name: '中正區', code: '100'},
+            {name: '大同區', code: '103'},
+            {name: '中山區', code: '104'},
+            {name: '松山區', code: '105'},
+            {name: '大安區', code: '106'},
+            {name: '萬華區', code: '108'},
+            {name: '信義區', code: '110'},
+            {name: '士林區', code: '111'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
+            {name: '中山區', code: '104'},
         ]);
         /* End Form */
         
@@ -275,7 +285,7 @@ export default {
     }
 
     .form{
-        height: 120px;
+        min-height: 120px;
         border: 3px solid #98d49b;
         border-radius: 10px;
         padding: 10px;
