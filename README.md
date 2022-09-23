@@ -1,24 +1,28 @@
 # ubike-map
 
-## Project setup
+## Front End Frame
+* Vue 3 + CLI
+* UI (Bootstrap ver.5.0.2 + PrimeVue)
+
+## Vue3 Base Usage
+* Composition API
+
+## PrimeVue
+### Set
 ```
-npm install
+do something 
+```
+### Usage
+```
+do something 
+```
+### Reference
+```
+do something 
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## OpenAPI
+* reference
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

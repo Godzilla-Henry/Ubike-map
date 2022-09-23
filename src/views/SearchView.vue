@@ -19,8 +19,8 @@
                                 <label for="sec">行政區</label>
                                 <Dropdown 
                                     id="sec" 
-                                    v-model="selectedCity2" 
-                                    :options="cities" 
+                                    v-model="selectedSec" 
+                                    :options="Secs" 
                                     optionLabel="name" 
                                     :editable="true" 
                                     style="width:100%; margin: 10px 0px;"
@@ -28,12 +28,12 @@
                             </div>
 
                             <div class="col-md-3">
-                                <label for="sec">場站</label>
+                                <label for="stop">場站</label>
                                 <Dropdown 
-                                    id="sec" 
-                                    v-model="selectedCity2" 
-                                    :options="cities" 
-                                    optionLabel="name" 
+                                    id="stop" 
+                                    v-model="selectedStop" 
+                                    :options="Sec_Stop" 
+                                    optionLabel="Stopname" 
                                     :editable="true" 
                                     style="width:100%; margin: 10px 0px;"
                                 />
@@ -73,7 +73,7 @@
                     </template>
                     <template #content>
                         <DataTable 
-                            :value="apiDatas"  
+                            :value="filterDatas"  
                             class="p-datatable-customers" 
                             dataKey="id" 
                             :rows="10" 
@@ -161,14 +161,14 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import axios from 'axios'
 
 export default {
     setup() {
         /* Form */
-        const selectedCity2 = ref();
-        const cities = ref([
+        const selectedSec = ref();
+        const Secs = ref([
             {name: '中正區', code: '100'},
             {name: '大同區', code: '103'},
             {name: '中山區', code: '104'},
@@ -176,22 +176,51 @@ export default {
             {name: '大安區', code: '106'},
             {name: '萬華區', code: '108'},
             {name: '信義區', code: '110'},
-            {name: '士林區', code: '111'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
-            {name: '中山區', code: '104'},
+            {name: '士林區', code: '111'}, 
+            {name: '北投區', code: '112'},
+            {name: '內湖區', code: '114'},
+            {name: '南港區', code: '115'},
+            {name: '文山區', code: '116'},
         ]);
+        const selectedStop = ref();
+        const Stops = ref([ 
+            // {Secname : "", Stopname: ""}
+            // All Stop Data
+        ]);
+        // Filter Stop By Sec
+        const Sec_Stop = computed(() => {
+            if(selectedSec.value == undefined){
+                return Stops.value;
+            }else{
+                return Stops.value.filter((d) => {
+                    return d.Secname === selectedSec.value.name
+                });
+            }
+            // Filter Stop Data
+        });
+        // End Filter Stop By Sec
         /* End Form */
         
         /* Search Btn */
-        const isSearched = ref(false);
+        const isSearched = ref(false); // Btn Css Class
         const load = (timer) => {
             loading.value = true;
             isSearched.value = true;
+
+            // Searching
+            filterDatas.value = apiDatas.value;
+            let SearchForm = [
+                { name:"Sec", value:selectedSec.value},
+                { name:"Stop", value:selectedStop.value}
+            ];
+            console.log(SearchForm);
+            let i = 0;
+            while(i < SearchForm.length){
+                filter(SearchForm[i]);
+                i++;
+            }
+            // End Searching
+
             setTimeout(() => {
                 loading.value = false;
                 isSearched.value = false;
@@ -199,13 +228,37 @@ export default {
         };
         /* End Search Btn */
 
+        /* Filter */
+        const filterDatas = ref([]);
+        const filter = ((keyword) => {
+            if(keyword.value){
+                switch(keyword.name){
+                    case "Sec":
+                        filterDatas.value = filterDatas.value.filter((d) => {
+                            return d.sarea === keyword.value.name;
+                        });
+                    break;
+                    case "Stop":
+                        filterDatas.value = filterDatas.value.filter((d) => {
+                            return d.sna === "YouBike2.0_" + keyword.value.Stopname;
+                        });
+                    break;
+                }
+            }
+        });
+        /* End Filter */
+
         /* Api */
         const loading = ref(true);
         const apiDatas = ref([]);
         const fetchApi =  async () => {
             await axios.get('https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/youbike_immediate.json')
             .then(res => {
-                apiDatas.value = res.data;
+                apiDatas.value = res.data; // API Origin
+                filterDatas.value = res.data;
+                apiDatas.value.forEach((item) =>{
+                    Stops.value.push({Secname : item.sarea, Stopname: item.sna.split('_')[1]});
+                });
                 loading.value = false;
             })
         }
@@ -225,13 +278,29 @@ export default {
         /* End NumberColor */
 
         return{
-            selectedCity2,
-            cities,
-            load,
+            // Form
+            selectedSec,
+            Secs,
+            selectedStop,
+            Stops,
+            Sec_Stop,
+            // End Form
+
+            // Btn search
             isSearched,
+            load,
+            // End Btn search
+
+            // Filter
+            filterDatas,
+            filter,
+            // End Filter
+
+            // Table 
             apiDatas,
             loading,
             color,
+            // End Table 
         }
     }
 }
